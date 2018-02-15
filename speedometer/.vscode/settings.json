@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "lcd_msp430.h": "c",
+        "stdint.h": "c",
+        "cstdint": "c",
+        "msp430.h": "c",
+        "msp430g2231.h": "c",
+        "spi_usi_msp430.h": "c",
+        "type_traits": "c",
+        "msp430fr5739.h": "c"
+    }
+}
