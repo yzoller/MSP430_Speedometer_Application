@@ -1,0 +1,14 @@
+# Source #
+*.d
+*.obj
+*.mk
+*.xml
+*.opt
+*.map
+*.launch
+*.out
+
+# Project settings #
+speedometer/.settings/org.eclipse.core.resources.prefs
+speedometer/Debug/makefile
+
