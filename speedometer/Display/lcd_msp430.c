@@ -8,49 +8,7 @@
 #include<font.h>
 #include<spi_msp430.h>
 #include<lcd_msp430.h>
-
-static uint8_t getHighByte(uint16_t data){
-  return (uint8_t)(data >> 8);
-}
-static uint8_t getLowByte(uint16_t data){
-  return (uint8_t)(data & 0xFF);
-}
-static void delay_us(uint16_t ticks){
-  volatile uint16_t value = ticks;
-  while(value > 0 ){
-    value--;
-  }
-}
-
-static void setupChipSelect(){
-  SET(P1DIR, CS_PIN);
-  SET(CS_PORT, CS_PIN);
-}
-
-static void setupReset(){
-  SET(P1DIR, RST_PIN);
-  SET(RST_PORT, RST_PIN);
-}
-
-static void setupDataCmdSelect(){
-  SET(DC_PORT, DC_PIN);
-  SET(P1DIR, DC_PIN);
-  RESET(DC_PORT, DC_PIN);
-}
-
-static void setGPIOinIdleState(){
-  delay_us(1);
-  SET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
-}
-
-static void resetLCD(){
-  SET(RST_PORT, RST_PIN);
-  delay_us(1200);
-  RESET(RST_PORT, RST_PIN);
-  delay_us(1200);
-  SET(RST_PORT, RST_PIN);
-}
+#include<lcd_gpio.h>
 
 void configureGPIOforLCD(){
   setupChipSelect();
@@ -58,18 +16,6 @@ void configureGPIOforLCD(){
   setupDataCmdSelect();
   setGPIOinIdleState();
   resetLCD();
-}
-
-static void setGPIOforCmd(){
-  RESET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
-  delay_us(1);
-}
-
-static void setGPIOforData(){
-  RESET(CS_PORT, CS_PIN);
-  SET(DC_PORT, DC_PIN);
-  delay_us(1);
 }
 
 void configureLCD(){

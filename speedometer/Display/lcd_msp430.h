@@ -14,17 +14,6 @@
 #define BACK_COLOR      0xFFFF
 #define FONT_COLOR      0x0000
 
-#define DC_PORT         P1OUT
-#define CS_PORT         P1OUT
-#define RST_PORT        P1OUT
-
-#define DC_PIN          BIT4
-#define CS_PIN          BIT6
-#define RST_PIN         BIT7
-
-#define SET(port, pin)  {port |= pin;}
-#define RESET(port, pin){port &= ~pin;}
-
 //Commands
 #define WAKEUP          0x11
 #define DISPLAY_ON      0x29
@@ -46,10 +35,10 @@
 #define GAMMA_POLP      0xE0
 #define GAMMA_POLN      0xE1
 
-void LCD_Init(void);
-void configureGPIOforLCD(void);
-void configureLCD(void);
-void clearDisplay(void);
+void LCD_Init();
+void configureGPIOforLCD();
+void configureLCD();
+void clearDisplay();
 void DrawPixel(uint8_t x, uint8_t y);
 void DrawPixel(uint8_t x, uint8_t y);
 void DrawChar8x8(uint8_t row, uint8_t col, uint8_t letter);
