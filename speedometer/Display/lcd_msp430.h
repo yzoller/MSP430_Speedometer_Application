@@ -40,15 +40,8 @@ void configureGPIOforLCD();
 void configureLCD();
 void clearDisplay();
 void DrawPixel(uint8_t x, uint8_t y);
-void DrawPixel(uint8_t x, uint8_t y);
 void DrawChar8x8(uint8_t row, uint8_t col, uint8_t letter);
 void DrawString(uint8_t row, char* temp);
-void WriteCmd(uint8_t cmd);
-void WriteData(uint8_t data);
-void Write8(uint8_t cmd, uint8_t data1);
-void Write16(uint8_t cmd, uint8_t data1, uint8_t data2);
-void Write24(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3);
-void Write32(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3, uint8_t data4);
 
 #endif // LCD_MSP430_H_INCLUDED_
 /* END OF FILE */

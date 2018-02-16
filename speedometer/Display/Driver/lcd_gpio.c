@@ -6,12 +6,6 @@
 #include<msp430fr5739.h>
 #include<lcd_gpio.h>
 
-uint8_t getHighByte(uint16_t data){
-  return (uint8_t)(data >> 8);
-}
-uint8_t getLowByte(uint16_t data){
-  return (uint8_t)(data & 0xFF);
-}
 void delay_us(uint16_t ticks){
   volatile uint16_t value = ticks;
   while(value > 0 ){

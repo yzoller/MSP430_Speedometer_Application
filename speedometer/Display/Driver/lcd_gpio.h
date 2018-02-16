@@ -20,8 +20,6 @@
 #define SET(port, pin)  {port |= pin;}
 #define RESET(port, pin){port &= ~pin;}
 
-uint8_t getHighByte(uint16_t data);
-uint8_t getLowByte(uint16_t data);
 void delay_us(uint16_t ticks);
 void setupChipSelect();
 void setupReset();

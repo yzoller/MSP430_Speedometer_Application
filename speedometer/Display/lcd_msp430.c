@@ -6,9 +6,17 @@
 #include<string.h>
 #include<msp430fr5739.h>
 #include<font.h>
-#include<spi_msp430.h>
 #include<lcd_msp430.h>
 #include<lcd_gpio.h>
+#include<lcd_com.h>
+
+static uint8_t getHighByte(uint16_t data){
+  return (uint8_t)(data >> 8);
+}
+
+static uint8_t getLowByte(uint16_t data){
+  return (uint8_t)(data & 0xFF);
+}
 
 void configureGPIOforLCD(){
   setupChipSelect();
@@ -132,7 +140,6 @@ void DrawChar8x8(uint8_t row, uint8_t col, uint8_t letter){
   WriteCmd(WRITE_RAM);
   for (i = 0; i < 8; i++){
     uint8_t temp = font_table[(line*8)+i];
-    __no_operation();
     p = 8;
     bit = 0;
     while(p > 0){
@@ -156,57 +163,8 @@ void DrawString(uint8_t row, char* temp){
   uint8_t i = 0;
 
   while((temp[i] != '\0') && (i < LCD_WIDTH)){
-    __no_operation();
     DrawChar8x8(row, i, temp[i]);
     i++;
   }
-}
-void WriteCmd(uint8_t cmd){
-  setGPIOforCmd();
-  SPI_SendData(cmd);
-  setGPIOinIdleState();
-}
-
-void WriteData(uint8_t data){
-  setGPIOforData();
-  SPI_SendData(data);
-  setGPIOinIdleState();
-}
-void Write8(uint8_t cmd, uint8_t data1){
-  setGPIOforCmd();
-  SPI_SendData(cmd);
-  SET(DC_PORT, DC_PIN);
-  SPI_SendData(data1);
-  setGPIOinIdleState();
-}
-
-void Write16(uint8_t cmd, uint8_t data1, uint8_t data2){
-  setGPIOforCmd();
-  SPI_SendData(cmd);
-  SET(DC_PORT, DC_PIN);
-  SPI_SendData(data1);
-  SPI_SendData(data2);
-  setGPIOinIdleState();
-}
-
-void Write24(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3){
-  setGPIOforCmd();
-  SPI_SendData(cmd);
-  SET(DC_PORT, DC_PIN);
-  SPI_SendData(data1);
-  SPI_SendData(data2);
-  SPI_SendData(data3);
-  setGPIOinIdleState();
-}
-
-void Write32(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3, uint8_t data4){
-  setGPIOforCmd();
-  SPI_SendData(cmd);
-  SET(DC_PORT, DC_PIN);
-  SPI_SendData(data1);
-  SPI_SendData(data2);
-  SPI_SendData(data3);
-  SPI_SendData(data4);
-  setGPIOinIdleState();
 }
 /* END OF FILE */
