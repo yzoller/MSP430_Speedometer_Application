@@ -29,30 +29,47 @@ static void delay_us(uint16_t ticks){
     value--;
   }
 }
-void LCD_Init(){
-  SPI_Init();
-  ConfigureGPIO();
-  ConfigureLCD();
-}
-void ConfigureGPIO(){
+
+static void setupChipSelect(){
   inRegSetPinHigh(P1DIR, CS_PIN);
   inRegSetPinHigh(CS_PORT, CS_PIN);
+}
 
+static void setupReset(){
   inRegSetPinHigh(P1DIR, RST_PIN);
   inRegSetPinHigh(RST_PORT, RST_PIN);
+}
 
+static void setupDataCmdSelect(){
   inRegSetPinHigh(DC_PORT, DC_PIN);
   inRegSetPinHigh(P1DIR, DC_PIN);
   inRegSetPinLow(DC_PORT, DC_PIN);
+}
 
+static void setGPIOinIdleState(){
+  delay_us(1);
   inRegSetPinHigh(CS_PORT, CS_PIN);
   inRegSetPinLow(DC_PORT, DC_PIN);
+}
 
+static void resetLCD(){
+  inRegSetPinHigh(RST_PORT, RST_PIN);
+  delay_us(1200);
   inRegSetPinLow(RST_PORT, RST_PIN);
-  delay_us(1000);
+  delay_us(1200);
   inRegSetPinHigh(RST_PORT, RST_PIN);
 }
-void ConfigureLCD(){
+
+void configureGPIOforLCD(){
+  setupChipSelect();
+  setupReset();
+  setupDataCmdSelect();
+  setGPIOinIdleState();
+  resetLCD();
+}
+
+
+void configureLCD(){
   inRegSetPinHigh(RST_PORT, RST_PIN);
   delay_us(1200);
   inRegSetPinLow(RST_PORT, RST_PIN);
@@ -135,6 +152,13 @@ void ClearDisplay(){
     }
   }
 }
+
+void LCD_Init(){
+  SPI_Init();
+  configureGPIOforLCD();
+  configureLCD();
+}
+
 void DrawPixel(uint8_t x, uint8_t y){
   if(( x < LCD_WIDTH-1 ) || ( y < LCD_HEIGHT-1 )){
     return;
