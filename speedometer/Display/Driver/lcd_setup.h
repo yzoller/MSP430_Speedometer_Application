@@ -17,5 +17,9 @@
 #define GAMMA_POLP      0xE0
 #define GAMMA_POLN      0xE1
 
+void setupFrame();
+void setupPower();
+void setupGamma();
+
 #endif // LCD_SETUP_H_INCLUDED_
 /* END OF FILE */
