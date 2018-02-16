@@ -9,6 +9,14 @@
 #include<spi_msp430.h>
 #include<lcd_msp430.h>
 
+static void inRegSetPinHigh(uint8_t port, uint8_t pin){
+  port |= pin;
+}
+
+static void inRegSetPinLow(uint8_t port, uint8_t pin){
+  port &= ~pin;
+}
+
 static uint8_t GetHighByte(uint16_t data){
   return (uint8_t)(data >> 8);
 }
@@ -27,29 +35,29 @@ void LCD_Init(){
   ConfigureLCD();
 }
 void ConfigureGPIO(){
-  SET(P1DIR, CS_PIN);
-  SET(CS_PORT, CS_PIN);
+  inRegSetPinHigh(P1DIR, CS_PIN);
+  inRegSetPinHigh(CS_PORT, CS_PIN);
 
-  SET(P1DIR, RST_PIN);
-  SET(RST_PORT, RST_PIN);
+  inRegSetPinHigh(P1DIR, RST_PIN);
+  inRegSetPinHigh(RST_PORT, RST_PIN);
 
-  SET(DC_PORT, DC_PIN);
-  SET(P1DIR, DC_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinHigh(DC_PORT, DC_PIN);
+  inRegSetPinHigh(P1DIR, DC_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
 
-  SET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinHigh(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
 
-  RESET(RST_PORT, RST_PIN);
+  inRegSetPinLow(RST_PORT, RST_PIN);
   delay_us(1000);
-  SET(RST_PORT, RST_PIN);
+  inRegSetPinHigh(RST_PORT, RST_PIN);
 }
 void ConfigureLCD(){
-  SET(RST_PORT, RST_PIN);
+  inRegSetPinHigh(RST_PORT, RST_PIN);
   delay_us(1200);
-  RESET(RST_PORT, RST_PIN);
+  inRegSetPinLow(RST_PORT, RST_PIN);
   delay_us(1200);
-  SET(RST_PORT, RST_PIN);
+  inRegSetPinHigh(RST_PORT, RST_PIN);
   delay_us(1200);
 
   WriteCmd(WAKEUP);
@@ -185,100 +193,100 @@ void DrawString(uint8_t row, char* temp){
   }
 }
 void WriteCmd(uint8_t cmd){
-  RESET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinLow(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
   delay_us(1);
 
   SPI_SendData(cmd);
 
   delay_us(1);
-  SET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinHigh(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
 }
 
 void WriteData(uint8_t data){
-  RESET(CS_PORT, CS_PIN);
-  SET(DC_PORT, DC_PIN);
+  inRegSetPinLow(CS_PORT, CS_PIN);
+  inRegSetPinHigh(DC_PORT, DC_PIN);
   delay_us(1);
 
   SPI_SendData(data);
 
   delay_us(1);
-  SET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinHigh(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
 }
 void Write8(uint8_t cmd, uint8_t data1){
-  RESET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinLow(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
   delay_us(1);
 
   SPI_SendData(cmd);
 
 
-  SET(DC_PORT, DC_PIN);
+  inRegSetPinHigh(DC_PORT, DC_PIN);
 
 
   SPI_SendData(data1);
 
   delay_us(1);
-  SET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinHigh(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
 }
 
 void Write16(uint8_t cmd, uint8_t data1, uint8_t data2){
-  RESET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinLow(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
   delay_us(1);
 
   SPI_SendData(cmd);
 
 
-  SET(DC_PORT, DC_PIN);
+  inRegSetPinHigh(DC_PORT, DC_PIN);
 
 
   SPI_SendData(data1);
   SPI_SendData(data2);
 
   delay_us(1);
-  SET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinHigh(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
 }
 
 void Write24(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3){
-  RESET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinLow(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
   delay_us(1);
 
   SPI_SendData(cmd);
 
 
-  SET(DC_PORT, DC_PIN);
+  inRegSetPinHigh(DC_PORT, DC_PIN);
 
   SPI_SendData(data1);
   SPI_SendData(data2);
   SPI_SendData(data3);
 
   delay_us(1);
-  SET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinHigh(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
 }
 
 void Write32(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3, uint8_t data4){
-  RESET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinLow(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
   delay_us(1);
 
   SPI_SendData(cmd);
 
 
-  SET(DC_PORT, DC_PIN);
+  inRegSetPinHigh(DC_PORT, DC_PIN);
   SPI_SendData(data1);
   SPI_SendData(data2);
   SPI_SendData(data3);
   SPI_SendData(data4);
 
   delay_us(1);
-  SET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  inRegSetPinHigh(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
 }
 /* END OF FILE */
