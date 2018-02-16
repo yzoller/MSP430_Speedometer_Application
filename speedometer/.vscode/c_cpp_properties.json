@@ -47,9 +47,9 @@
             "includePath": [
                 "${workspaceRoot}",
                 "C:/MinGW/lib/gcc/mingw32/6.3.0/include",
-                "${workspaceRoot}/Fonts",
                 "${workspaceRoot}/Display",
                 "${workspaceRoot}/Display/Driver",
+                "${workspaceRoot}/Display/Fonts",
                 "${workspaceRoot}/Display/Driver/SPI",
                 "C:/MinGW/include",
                 "C:/ti/ccsv7/ccs_base/msp430/include_gcc"

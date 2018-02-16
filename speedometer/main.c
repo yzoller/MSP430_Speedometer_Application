@@ -1,5 +1,5 @@
 #include <msp430fr5739.h>
-#include <Display/lcd_msp430.h>
+#include <lcd_msp430.h>
 
 void main(void)
 {
