@@ -1,46 +1,29 @@
-/****************************************************************
+/**
  * @filename: spi_msp430.c
  * @author: Yannick Zoller
- * @brief: Serial Peripheral Interface (SPI) configuration
- *         for MSP430FR57xx
- ***************************************************************/
+ **/
 #include<spi_msp430.h>
 #include<msp430fr5739.h>
 #include<stdint.h>
-/****************************************************************
- * @function: SPI_Init
- * @brief: Configures and initializes USCI register
- *         for SPI communication
- ***************************************************************/
+
 void SPI_Init(){
-  // halt USCI for configuration
-  UCA0CTLW0 |= UCSWRST;
+  SPI_CONTROL_WORD |= SOFTWARERESET;
 
-  // configure GPIO for SPI communication
-  P1SEL1 |= CLK_PIN;
-  P2SEL1 |= SIMO_PIN;
+  PORT1_SELECT |= CLK_PIN;
+  PORT2_SELECT |= SIMO_PIN; 
 
-  // MSB first, synchronous 3-pin master mode, SMCLK clocksoure
-  UCA0CTLW0 |= UCCKPH + UCMSB + UCMST + UCSYNC + UCSSEL_2;
+  SPI_CONTROL_WORD |= (CLK_PHASE + MSB_FIRST + MASTER
+                       + SYNCHRONOUS + CLK_SOURCE);
 
-  // set clock divider
-  UCA0BRW = 0x0002;
-
-  // release USCI for operation
-  UCA0CTLW0 &= ~UCSWRST;
+  CLK_DIVIDER = 0x0002;
+  SPI_CONTROL_WORD &= ~SOFTWARERESET;
 }
-/****************************************************************
- * @brief: Send data via SPI
- * @param: TXdata -- data to be send
- ***************************************************************/
+
 void SPI_SendData(uint8_t TXdata){
-  // TX buffer ready?
-  while(!(UCA0IFG & UCTXIFG));
+  while(!(SPI_INTERRUPT_FLAG & TX_INTERRUPT_FLAG));
 
-  // write data to TX buffer
-  UCA0TXBUF = TXdata;
+  TX_BUFFER = TXdata;
 
-  // transmission completed?
-  while(UCA0STATW & UCBUSY);
+  while(SPI_STATUS_WORD & SPI_BUSY);
 }
 /* END OF FILE */

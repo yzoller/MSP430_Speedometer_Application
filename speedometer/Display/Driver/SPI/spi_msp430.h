@@ -1,32 +1,34 @@
-/****************************************************************
+/**
  * @filename: spi_usci_msp430.h
  * @author: Yannick Zoller
- * @brief: Serial Peripheral Interface (SPI) configuration
- *         for MSP430FR57xx
- * @functions:
- *  SPI_Init -- Configures and initializes the GPIOs and register
- *             for SPI communication
- *  SPI_SendData -- Sends data via SPI
- ***************************************************************/
+ **/
 #ifndef SPI_MSP430_H_INCLUDED_
 #define SPI_MSP430_H_INCLUDED_
 
 #include<stdint.h>
 #include<msp430fr5739.h>
 
-#define SIMO_PIN        BIT0
-#define CLK_PIN         BIT5
-/****************************************************************
- * @function: SPI_Init
- * @brief: Configures and initializes the GPIOs and register
- *         for SPI communication
- ***************************************************************/
-void SPI_Init();
-/****************************************************************
- * @function: SPI_SendData
- * @brief: Send data via SPI
- * @param: TXdata -- data to be send
- ***************************************************************/
+#define SOFTWARERESET      UCSWRST
+#define CLK_PIN            BIT5
+#define SIMO_PIN           BIT0
+#define PORT1_SELECT       P1SEL1
+#define PORT2_SELECT       P2SEL1
+#define SPI_CONTROL_WORD   UCA0CTLW0
+#define CLK_PHASE          UCCKPH
+#define MSB_FIRST          UCMSB
+#define MASTER             UCMST
+#define SYNCHRONOUS        UCSYNC
+#define CLK_SOURCE         UCSSEL_2
+#define CLK_DIVIDER        UCA0BRW
+
+#define SPI_INTERRUPT_FLAG UCA0IFG
+#define TX_INTERRUPT_FLAG  UCTXIFG
+#define TX_BUFFER          UCA0TXBUF
+#define SPI_STATUS_WORD    UCA0STATW
+#define SPI_BUSY           UCBUSY
+
+void SPI_Init(void);
 void SPI_SendData(uint8_t TXdata);
+
 #endif // SPI_MSP430_H_INCLUDED_
 /* END OF FILE */
