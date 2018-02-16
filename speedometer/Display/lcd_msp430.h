@@ -1,7 +1,7 @@
-/****************************************************************
+/**
  * @filename: lcd_msp430.h
  * @author: Yannick Zoller
- ***************************************************************/
+ **/
 #ifndef LCD_MSP430_H_INCLUDED_
 #define LCD_MSP430_H_INCLUDED_
 
@@ -14,7 +14,6 @@
 #define BACK_COLOR      0xFFFF
 #define FONT_COLOR      0x0000
 
-
 #define DC_PORT         P1OUT
 #define CS_PORT         P1OUT
 #define RST_PORT        P1OUT
@@ -22,13 +21,9 @@
 #define DC_PIN          BIT4
 #define CS_PIN          BIT6
 #define RST_PIN         BIT7
-#define CLK_PIN         BIT5 // P1.5
-#define SIMO_PIN        BIT0 // P2.0
 
 #define SET(port, pin)  {port |= pin;}
 #define RESET(port, pin){port &= ~pin;}
-
-//#define HB_FONT {(uint8_t)(FONT_COLOR >> 8);}
 
 //Commands
 #define WAKEUP          0x11
@@ -51,21 +46,11 @@
 #define GAMMA_POLP      0xE0
 #define GAMMA_POLN      0xE1
 
-//typedef struct LCD_t{
-//  uint8_t dc_pin;
-//  uint8_t cs_pin;
-//  uint8_t rst_pin;
-//  uint8_t width;
-//  uint8_t height;
-//  uint8_t memory[LCD_WIDTH/8][LCD_HEIGHT];
-//} LCD;
-
-void LCD_Init();
-void configureGPIOforLCD();
-void configureLCD();
-void ClearDisplay();
+void LCD_Init(void);
+void configureGPIOforLCD(void);
+void configureLCD(void);
+void clearDisplay(void);
 void DrawPixel(uint8_t x, uint8_t y);
-void ClearDisplay();
 void DrawPixel(uint8_t x, uint8_t y);
 void DrawChar8x8(uint8_t row, uint8_t col, uint8_t letter);
 void DrawString(uint8_t row, char* temp);

@@ -1,7 +1,7 @@
-/****************************************************************
+/**
  * @filename: lcd_msp430.c
  * @author: Yannick Zoller
- ***************************************************************/
+ **/
 #include<stdint.h>
 #include<string.h>
 #include<msp430fr5739.h>
@@ -73,11 +73,7 @@ static void setGPIOforData(){
 }
 
 void configureLCD(){
-  SET(RST_PORT, RST_PIN);
-  delay_us(1200);
-  RESET(RST_PORT, RST_PIN);
-  delay_us(1200);
-  SET(RST_PORT, RST_PIN);
+  resetLCD(); 
   delay_us(1200);
 
   WriteCmd(WAKEUP);
@@ -138,9 +134,9 @@ void configureLCD(){
 
   WriteCmd(DISPLAY_ON);
 
-  ClearDisplay();
+  clearDisplay();
 }
-void ClearDisplay(){ 
+void clearDisplay(){ 
   volatile uint8_t i, j;
 
   Write32(SET_COL_ADR, 0x00, 0x00, 0x00, (LCD_WIDTH)-1);
