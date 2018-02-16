@@ -17,10 +17,10 @@ static void inRegSetPinLow(uint8_t port, uint8_t pin){
   port &= ~pin;
 }
 
-static uint8_t GetHighByte(uint16_t data){
+static uint8_t getHighByte(uint16_t data){
   return (uint8_t)(data >> 8);
 }
-static uint8_t GetLowByte(uint16_t data){
+static uint8_t getLowByte(uint16_t data){
   return (uint8_t)(data & 0xFF);
 }
 static void delay_us(uint16_t ticks){
@@ -130,8 +130,8 @@ void ClearDisplay(){
 
   for(i = 0; i <  LCD_HEIGHT; i++){
     for(j = 0; j < LCD_WIDTH; j++){
-      WriteData(GetHighByte(BACK_COLOR));
-      WriteData(GetLowByte(BACK_COLOR));
+      WriteData(getHighByte(BACK_COLOR));
+      WriteData(getLowByte(BACK_COLOR));
     }
   }
 }
@@ -143,7 +143,7 @@ void DrawPixel(uint8_t x, uint8_t y){
 	Write32(SET_COL_ADR, 0x00, x, 0x00, x);
 	Write32(SET_ROW_ADR, 0x00, y, 0x00, y);
 
-	Write16(WRITE_RAM, GetHighByte(FONT_COLOR), GetLowByte(FONT_COLOR));
+	Write16(WRITE_RAM, getHighByte(FONT_COLOR), getLowByte(FONT_COLOR));
 }
 void DrawChar8x8(uint8_t row, uint8_t col, uint8_t letter){
 //  if (( row < LCD_HEIGHT/8 ) || (col < LCD_WIDTH/8)){
@@ -172,12 +172,12 @@ void DrawChar8x8(uint8_t row, uint8_t col, uint8_t letter){
       bit = ((1u << (p-1)) & temp) >> (p-1);
 
       if (bit == 1){
-        WriteData(GetHighByte(FONT_COLOR));
-        WriteData(GetLowByte(FONT_COLOR));
+        WriteData(getHighByte(FONT_COLOR));
+        WriteData(getLowByte(FONT_COLOR));
       }
       else{
-        WriteData(GetHighByte(BACK_COLOR));
-        WriteData(GetLowByte(BACK_COLOR));
+        WriteData(getHighByte(BACK_COLOR));
+        WriteData(getLowByte(BACK_COLOR));
       }
       p--;
     }
