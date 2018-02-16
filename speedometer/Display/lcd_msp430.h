@@ -61,8 +61,8 @@
 //} LCD;
 
 void LCD_Init();
-void ConfigureGPIO();
-void ConfigureLCD();
+void configureGPIOforLCD();
+void configureLCD();
 void ClearDisplay();
 void DrawPixel(uint8_t x, uint8_t y);
 void ClearDisplay();

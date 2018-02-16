@@ -68,6 +68,17 @@ void configureGPIOforLCD(){
   resetLCD();
 }
 
+static void setGPIOforCmd(){
+  inRegSetPinLow(CS_PORT, CS_PIN);
+  inRegSetPinLow(DC_PORT, DC_PIN);
+  delay_us(1);
+}
+
+static void setGPIOforData(){
+  inRegSetPinLow(CS_PORT, CS_PIN);
+  inRegSetPinHigh(DC_PORT, DC_PIN);
+  delay_us(1);
+}
 
 void configureLCD(){
   inRegSetPinHigh(RST_PORT, RST_PIN);
@@ -217,100 +228,51 @@ void DrawString(uint8_t row, char* temp){
   }
 }
 void WriteCmd(uint8_t cmd){
-  inRegSetPinLow(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
-  delay_us(1);
-
+  setGPIOforCmd();
   SPI_SendData(cmd);
-
-  delay_us(1);
-  inRegSetPinHigh(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
+  setGPIOinIdleState();
 }
 
 void WriteData(uint8_t data){
-  inRegSetPinLow(CS_PORT, CS_PIN);
-  inRegSetPinHigh(DC_PORT, DC_PIN);
-  delay_us(1);
-
+  setGPIOforData();
   SPI_SendData(data);
-
-  delay_us(1);
-  inRegSetPinHigh(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
+  setGPIOinIdleState();
 }
 void Write8(uint8_t cmd, uint8_t data1){
-  inRegSetPinLow(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
-  delay_us(1);
-
+  setGPIOforCmd();
   SPI_SendData(cmd);
-
-
   inRegSetPinHigh(DC_PORT, DC_PIN);
-
-
   SPI_SendData(data1);
-
-  delay_us(1);
-  inRegSetPinHigh(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
+  setGPIOinIdleState();
 }
 
 void Write16(uint8_t cmd, uint8_t data1, uint8_t data2){
-  inRegSetPinLow(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
-  delay_us(1);
-
+  setGPIOforCmd();
   SPI_SendData(cmd);
-
-
   inRegSetPinHigh(DC_PORT, DC_PIN);
-
-
   SPI_SendData(data1);
   SPI_SendData(data2);
-
-  delay_us(1);
-  inRegSetPinHigh(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
+  setGPIOinIdleState();
 }
 
 void Write24(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3){
-  inRegSetPinLow(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
-  delay_us(1);
-
+  setGPIOforCmd();
   SPI_SendData(cmd);
-
-
   inRegSetPinHigh(DC_PORT, DC_PIN);
-
   SPI_SendData(data1);
   SPI_SendData(data2);
   SPI_SendData(data3);
-
-  delay_us(1);
-  inRegSetPinHigh(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
+  setGPIOinIdleState();
 }
 
 void Write32(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3, uint8_t data4){
-  inRegSetPinLow(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
-  delay_us(1);
-
+  setGPIOforCmd();
   SPI_SendData(cmd);
-
-
   inRegSetPinHigh(DC_PORT, DC_PIN);
   SPI_SendData(data1);
   SPI_SendData(data2);
   SPI_SendData(data3);
   SPI_SendData(data4);
-
-  delay_us(1);
-  inRegSetPinHigh(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
+  setGPIOinIdleState();
 }
 /* END OF FILE */
