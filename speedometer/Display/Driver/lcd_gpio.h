@@ -21,9 +21,9 @@
 #define RESET(port, pin){port &= ~pin;}
 
 void delay_us(uint16_t ticks);
-void setupChipSelect();
-void setupReset();
-void setupDataCmdSelect();
+void setupChipSelectGPIO();
+void setupResetGPIO();
+void setupDataCmdSelectGPIO();
 void setGPIOinIdleState();
 void resetLCD();
 void setGPIOforCmd();

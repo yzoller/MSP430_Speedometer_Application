@@ -20,9 +20,9 @@ static uint8_t getLowByte(uint16_t data){
 }
 
 static void configureGPIOforLCD(){
-  setupChipSelect();
-  setupReset();
-  setupDataCmdSelect();
+  setupChipSelectGPIO();
+  setupResetGPIO();
+  setupDataCmdSelectGPIO();
   setGPIOinIdleState();
   resetLCD();
 }
