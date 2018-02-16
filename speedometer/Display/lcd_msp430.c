@@ -9,14 +9,6 @@
 #include<spi_msp430.h>
 #include<lcd_msp430.h>
 
-static void inRegSetPinHigh(uint8_t port, uint8_t pin){
-  port |= pin;
-}
-
-static void inRegSetPinLow(uint8_t port, uint8_t pin){
-  port &= ~pin;
-}
-
 static uint8_t getHighByte(uint16_t data){
   return (uint8_t)(data >> 8);
 }
@@ -31,33 +23,33 @@ static void delay_us(uint16_t ticks){
 }
 
 static void setupChipSelect(){
-  inRegSetPinHigh(P1DIR, CS_PIN);
-  inRegSetPinHigh(CS_PORT, CS_PIN);
+  SET(P1DIR, CS_PIN);
+  SET(CS_PORT, CS_PIN);
 }
 
 static void setupReset(){
-  inRegSetPinHigh(P1DIR, RST_PIN);
-  inRegSetPinHigh(RST_PORT, RST_PIN);
+  SET(P1DIR, RST_PIN);
+  SET(RST_PORT, RST_PIN);
 }
 
 static void setupDataCmdSelect(){
-  inRegSetPinHigh(DC_PORT, DC_PIN);
-  inRegSetPinHigh(P1DIR, DC_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
+  SET(DC_PORT, DC_PIN);
+  SET(P1DIR, DC_PIN);
+  RESET(DC_PORT, DC_PIN);
 }
 
 static void setGPIOinIdleState(){
   delay_us(1);
-  inRegSetPinHigh(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
+  SET(CS_PORT, CS_PIN);
+  RESET(DC_PORT, DC_PIN);
 }
 
 static void resetLCD(){
-  inRegSetPinHigh(RST_PORT, RST_PIN);
+  SET(RST_PORT, RST_PIN);
   delay_us(1200);
-  inRegSetPinLow(RST_PORT, RST_PIN);
+  RESET(RST_PORT, RST_PIN);
   delay_us(1200);
-  inRegSetPinHigh(RST_PORT, RST_PIN);
+  SET(RST_PORT, RST_PIN);
 }
 
 void configureGPIOforLCD(){
@@ -69,23 +61,23 @@ void configureGPIOforLCD(){
 }
 
 static void setGPIOforCmd(){
-  inRegSetPinLow(CS_PORT, CS_PIN);
-  inRegSetPinLow(DC_PORT, DC_PIN);
+  RESET(CS_PORT, CS_PIN);
+  RESET(DC_PORT, DC_PIN);
   delay_us(1);
 }
 
 static void setGPIOforData(){
-  inRegSetPinLow(CS_PORT, CS_PIN);
-  inRegSetPinHigh(DC_PORT, DC_PIN);
+  RESET(CS_PORT, CS_PIN);
+  SET(DC_PORT, DC_PIN);
   delay_us(1);
 }
 
 void configureLCD(){
-  inRegSetPinHigh(RST_PORT, RST_PIN);
+  SET(RST_PORT, RST_PIN);
   delay_us(1200);
-  inRegSetPinLow(RST_PORT, RST_PIN);
+  RESET(RST_PORT, RST_PIN);
   delay_us(1200);
-  inRegSetPinHigh(RST_PORT, RST_PIN);
+  SET(RST_PORT, RST_PIN);
   delay_us(1200);
 
   WriteCmd(WAKEUP);
@@ -241,7 +233,7 @@ void WriteData(uint8_t data){
 void Write8(uint8_t cmd, uint8_t data1){
   setGPIOforCmd();
   SPI_SendData(cmd);
-  inRegSetPinHigh(DC_PORT, DC_PIN);
+  SET(DC_PORT, DC_PIN);
   SPI_SendData(data1);
   setGPIOinIdleState();
 }
@@ -249,7 +241,7 @@ void Write8(uint8_t cmd, uint8_t data1){
 void Write16(uint8_t cmd, uint8_t data1, uint8_t data2){
   setGPIOforCmd();
   SPI_SendData(cmd);
-  inRegSetPinHigh(DC_PORT, DC_PIN);
+  SET(DC_PORT, DC_PIN);
   SPI_SendData(data1);
   SPI_SendData(data2);
   setGPIOinIdleState();
@@ -258,7 +250,7 @@ void Write16(uint8_t cmd, uint8_t data1, uint8_t data2){
 void Write24(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3){
   setGPIOforCmd();
   SPI_SendData(cmd);
-  inRegSetPinHigh(DC_PORT, DC_PIN);
+  SET(DC_PORT, DC_PIN);
   SPI_SendData(data1);
   SPI_SendData(data2);
   SPI_SendData(data3);
@@ -268,7 +260,7 @@ void Write24(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3){
 void Write32(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3, uint8_t data4){
   setGPIOforCmd();
   SPI_SendData(cmd);
-  inRegSetPinHigh(DC_PORT, DC_PIN);
+  SET(DC_PORT, DC_PIN);
   SPI_SendData(data1);
   SPI_SendData(data2);
   SPI_SendData(data3);
