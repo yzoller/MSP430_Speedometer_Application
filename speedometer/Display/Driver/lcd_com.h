@@ -6,10 +6,8 @@
 #define LCD_COM_H_INCLUDED_
 
 #include<stdint.h>
-#include<msp430fr5739.h>
-#include<spi_msp430.h>
-#include<lcd_gpio.h>
 
+void initCommunication();
 void WriteCmd(uint8_t cmd);
 void WriteData(uint8_t data);
 void Write8(uint8_t cmd, uint8_t data1);
