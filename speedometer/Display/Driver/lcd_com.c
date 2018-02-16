@@ -8,6 +8,10 @@
 #include<lcd_gpio.h>
 #include<lcd_com.h>
 
+void initCommunication(){
+  SPI_Init();
+}
+
 void WriteCmd(uint8_t cmd){
   setGPIOforCmd();
   SPI_SendData(cmd);

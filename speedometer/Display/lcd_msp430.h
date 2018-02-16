@@ -14,30 +14,16 @@
 #define BACK_COLOR      0xFFFF
 #define FONT_COLOR      0x0000
 
-//Commands
 #define WAKEUP          0x11
 #define DISPLAY_ON      0x29
 #define SET_COL_ADR     0x2A
 #define SET_ROW_ADR     0x2B
 #define WRITE_RAM       0x2C
-#define MEMACC_CTL      0x36
 #define COLOR_MODE      0x3A
-#define FRAME_CTL1      0xB1
-#define FRAME_CTL2      0xB2
-#define FRAME_CTL3      0xB3
-#define FRAME_INVERT    0xB4
-#define POWER_CTL1      0xC0
-#define POWER_CTL2      0xC1
-#define POWER_CTL3      0xC2
-#define POWER_CTL4      0xC3
-#define POWER_CTL5      0xC4
 #define VCOM_CTL1       0xC5
-#define GAMMA_POLP      0xE0
-#define GAMMA_POLN      0xE1
+#define MEMACC_CTL      0x36
 
 void LCD_Init();
-void configureGPIOforLCD();
-void configureLCD();
 void clearDisplay();
 void DrawPixel(uint8_t x, uint8_t y);
 void DrawChar8x8(uint8_t row, uint8_t col, uint8_t letter);
