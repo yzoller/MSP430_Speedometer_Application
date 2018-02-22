@@ -20,7 +20,7 @@ void SPI_Init(){
 }
 
 void SPI_SendData(uint8_t TXdata){
-  while(!(SPI_INTERRUPT_FLAG & TX_INTERRUPT_FLAG));
+  while(!(SPI_INTERRUPT_FLAG_REG & TX_INTERRUPT_FLAG));
 
   TX_BUFFER = TXdata;
 
