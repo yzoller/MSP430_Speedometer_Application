@@ -1,5 +1,5 @@
 /**
- * @filename: spi_usci_msp430.h
+ * @filename: spi_msp430.h
  * @author: Yannick Zoller
  **/
 #ifndef SPI_MSP430_H_INCLUDED_
