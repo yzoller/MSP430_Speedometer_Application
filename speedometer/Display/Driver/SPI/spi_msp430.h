@@ -28,7 +28,7 @@
 #define SPI_BUSY               UCBUSY
 
 void SPI_Init(void);
-void SPI_SendData(uint8_t TXdata);
+void SPI_SendByte(uint8_t TXdata);
 
 #endif // SPI_MSP430_H_INCLUDED_
 /* END OF FILE */
