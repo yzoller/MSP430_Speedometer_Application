@@ -16,7 +16,7 @@
 #define SPI_CONTROL_WORD       UCA0CTLW0
 #define CLK_PHASE              UCCKPH
 #define MSB_FIRST              UCMSB
-#define MASTER                 UCMST
+#define SPI_MASTER             UCMST
 #define SYNCHRONOUS            UCSYNC
 #define CLK_SOURCE             UCSSEL_2
 #define CLK_DIVIDER            UCA0BRW
