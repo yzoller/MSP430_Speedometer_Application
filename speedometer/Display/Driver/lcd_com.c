@@ -26,7 +26,7 @@ void WriteData(uint8_t data){
 void Write8(uint8_t cmd, uint8_t data1){
   setGPIOforCmd();
   SPI_SendByte(cmd);
-  SET(DC_PORT, DC_PIN);
+  SET(DC_OUTPORT, DC_PIN);
   SPI_SendByte(data1);
   setGPIOinIdleState();
 }
@@ -34,7 +34,7 @@ void Write8(uint8_t cmd, uint8_t data1){
 void Write16(uint8_t cmd, uint8_t data1, uint8_t data2){
   setGPIOforCmd();
   SPI_SendByte(cmd);
-  SET(DC_PORT, DC_PIN);
+  SET(DC_OUTPORT, DC_PIN);
   SPI_SendByte(data1);
   SPI_SendByte(data2);
   setGPIOinIdleState();
@@ -43,7 +43,7 @@ void Write16(uint8_t cmd, uint8_t data1, uint8_t data2){
 void Write24(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3){
   setGPIOforCmd();
   SPI_SendByte(cmd);
-  SET(DC_PORT, DC_PIN);
+  SET(DC_OUTPORT, DC_PIN);
   SPI_SendByte(data1);
   SPI_SendByte(data2);
   SPI_SendByte(data3);
@@ -53,7 +53,7 @@ void Write24(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3){
 void Write32(uint8_t cmd, uint8_t data1, uint8_t data2, uint8_t data3, uint8_t data4){
   setGPIOforCmd();
   SPI_SendByte(cmd);
-  SET(DC_PORT, DC_PIN);
+  SET(DC_OUTPORT, DC_PIN);
   SPI_SendByte(data1);
   SPI_SendByte(data2);
   SPI_SendByte(data3);

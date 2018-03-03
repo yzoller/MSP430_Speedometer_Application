@@ -14,44 +14,44 @@ void delay_us(uint16_t ticks){
 }
 
 void setupChipSelectGPIO(){
-  SET(DIR_PORT, CS_PIN);
-  SET(CS_PORT, CS_PIN);
+  SET(CS_DIRPORT, CS_PIN);
+  SET(CS_OUTPORT, CS_PIN);
 }
 
 void setupResetGPIO(){
-  SET(DIR_PORT, RST_PIN);
-  SET(RST_PORT, RST_PIN);
+  SET(RST_DIRPORT, RST_PIN);
+  SET(RST_OUTPORT, RST_PIN);
 }
 
 void setupDataCmdSelectGPIO(){
-  SET(DC_PORT, DC_PIN);
-  SET(DIR_PORT, DC_PIN);
-  RESET(DC_PORT, DC_PIN);
+  SET(DC_OUTPORT, DC_PIN);
+  SET(DC_DIRPORT, DC_PIN);
+  RESET(DC_OUTPORT, DC_PIN);
 }
 
 void setGPIOinIdleState(){
   delay_us(1);
-  SET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  SET(CS_OUTPORT, CS_PIN);
+  RESET(DC_OUTPORT, DC_PIN);
 }
 
 void resetLCD(){
-  SET(RST_PORT, RST_PIN);
+  SET(RST_OUTPORT, RST_PIN);
   delay_us(1200);
-  RESET(RST_PORT, RST_PIN);
+  RESET(RST_OUTPORT, RST_PIN);
   delay_us(1200);
-  SET(RST_PORT, RST_PIN);
+  SET(RST_OUTPORT, RST_PIN);
 }
 
 void setGPIOforCmd(){
-  RESET(CS_PORT, CS_PIN);
-  RESET(DC_PORT, DC_PIN);
+  RESET(CS_OUTPORT, CS_PIN);
+  RESET(DC_OUTPORT, DC_PIN);
   delay_us(1);
 }
 
 void setGPIOforData(){
-  RESET(CS_PORT, CS_PIN);
-  SET(DC_PORT, DC_PIN);
+  RESET(CS_OUTPORT, CS_PIN);
+  SET(DC_OUTPORT, DC_PIN);
   delay_us(1);
 }
 /* END OF FILE */

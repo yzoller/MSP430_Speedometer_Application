@@ -8,14 +8,17 @@
 #include<stdint.h>
 #include<msp430fr5739.h>
 
-#define DC_PORT         P1OUT
-#define CS_PORT         P1OUT
-#define RST_PORT        P1OUT
-#define DIR_PORT        P1DIR
+#define CS_PIN          BIT6
+#define CS_OUTPORT      P1OUT
+#define CS_DIRPORT      P1DIR
+
+#define RST_PIN         BIT7
+#define RST_OUTPORT     P1OUT
+#define RST_DIRPORT     P1DIR
 
 #define DC_PIN          BIT4
-#define CS_PIN          BIT6
-#define RST_PIN         BIT7
+#define DC_OUTPORT      P1OUT
+#define DC_DIRPORT      P1DIR
 
 #define SET(port, pin)  {port |= pin;}
 #define RESET(port, pin){port &= ~pin;}
