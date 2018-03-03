@@ -14,18 +14,18 @@ void delay_us(uint16_t ticks){
 }
 
 void setupChipSelectGPIO(){
-  SET(P1DIR, CS_PIN);
+  SET(DIR_PORT, CS_PIN);
   SET(CS_PORT, CS_PIN);
 }
 
 void setupResetGPIO(){
-  SET(P1DIR, RST_PIN);
+  SET(DIR_PORT, RST_PIN);
   SET(RST_PORT, RST_PIN);
 }
 
 void setupDataCmdSelectGPIO(){
   SET(DC_PORT, DC_PIN);
-  SET(P1DIR, DC_PIN);
+  SET(DIR_PORT, DC_PIN);
   RESET(DC_PORT, DC_PIN);
 }
 
