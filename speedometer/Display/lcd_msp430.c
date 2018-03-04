@@ -77,7 +77,7 @@ void DrawPixel(uint8_t x, uint8_t y){
 	Write16(WRITE_RAM, getHighByte(FONT_COLOR), getLowByte(FONT_COLOR));
 }
 void DrawChar8x8(uint8_t row, uint8_t col, uint8_t letter){
-  if (( row > LCD_HEIGHT/8 ) || (col < LCD_WIDTH/8)){
+  if (( row > LCD_HEIGHT/8 ) || (col > LCD_WIDTH/8)){
     return;
   }
   uint8_t x1 = col * 8;
