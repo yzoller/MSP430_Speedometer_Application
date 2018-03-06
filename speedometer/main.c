@@ -8,9 +8,14 @@ void main(void)
 	volatile unsigned int i;        // volatile to prevent optimization
 	LCD_Init();
 
-	char* string = "Hello";
-	DrawString(1, string);
-	DrawString(3, "World");
+	DrawString(3, " Studienarbeit");
+	DrawString(6, " \"Fahrradtacho");
+	DrawChar8x8(8, 6, 'm');
+	DrawChar8x8(8, 7, 'i');
+	DrawChar8x8(8, 8, 't');
+	DrawString(10, "    Display\"");
+	DrawString(13, " Yannick Zoller");
+	DrawString(15, "   06.03.2018");
 
 	while(1)
 	{
